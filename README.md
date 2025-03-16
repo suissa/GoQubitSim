@@ -1,5 +1,4 @@
 # GoQubitSim
-Implementação em Go da lib [QubitSim de JS](https://github.com/suissa/QubitSim)
 
 <div align="center">
   <img src="https://i.imgur.com/FWzye0m.png" alt="QubitSim" width="220"/>
