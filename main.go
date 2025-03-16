@@ -6,7 +6,9 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/suissa/goqubitsim/algorithms"
 	"github.com/suissa/goqubitsim/core"
+	"github.com/suissa/goqubitsim/core/gates"
 	"github.com/suissa/goqubitsim/crypto"
 )
 
@@ -22,18 +24,40 @@ func main() {
 	fmt.Printf("Qubit 0 Estado Inicial: %v\n", q0.Coefficients)
 	fmt.Printf("Qubit 1 Estado Inicial: %v\n", q1.Coefficients)
 
-	// 2. Operações Quânticas
+	// 2. Operações com Portas Quânticas
 	fmt.Println("\n2. Aplicando Portas Quânticas:")
-	q0.RotateX(math.Pi / 2)
-	q1.RotateY(math.Pi / 4)
-	fmt.Printf("Qubit 0 após Rotação X: %v\n", q0.Coefficients)
-	fmt.Printf("Qubit 1 após Rotação Y: %v\n", q1.Coefficients)
 
-	// 3. Entrelaçamento Quântico
-	fmt.Println("\n3. Entrelaçando Qubits:")
-	q0.Entangle(q1)
-	fmt.Println("Qubits Entrelaçados:")
-	fmt.Printf("Estado Combinado: %v\n", q0.Coefficients)
+	// Hadamard no Qubit 0
+	gates.ApplyHadamard(q0)
+	fmt.Printf("Qubit 0 após Hadamard: %.2f\n", q0.Coefficients)
+
+	// Pauli-X no Qubit 1
+	pauli := gates.NewPauliGates()
+	pauli.ApplyX(q1)
+	fmt.Printf("Qubit 1 após Pauli-X: %v\n", q1.Coefficients)
+
+	// Rotação Z de 90 graus
+	q0.RotateZ(math.Pi / 2)
+	fmt.Printf("Qubit 0 após Rotação Z: %.2f\n", q0.Coefficients)
+
+	// 3. Entrelaçamento e CNOT
+	fmt.Println("\n3. Entrelaçamento e Operação CNOT:")
+
+	// Cria novos qubits para demonstração do CNOT
+	control := core.NewQubit([]float64{1, 0}) // |0⟩
+	target := core.NewQubit([]float64{1, 0})  // |0⟩
+
+	// Aplica Hadamard no qubit de controle
+	gates.ApplyHadamard(control)
+	fmt.Printf("\nEstado pré-CNOT:")
+	fmt.Printf("\nControle: %.2f", control.Coefficients)
+	fmt.Printf("\nAlvo: %v\n", target.Coefficients)
+
+	// Aplica porta CNOT
+	gates.ApplyCNOT(control, target)
+	fmt.Printf("\nEstado pós-CNOT:")
+	fmt.Printf("\nControle: %.2f", control.Coefficients)
+	fmt.Printf("\nAlvo: %v\n", target.Coefficients)
 
 	// 4. Geração de Chave Quântica
 	fmt.Println("\n4. Gerando Chave Quântica:")
@@ -52,7 +76,8 @@ func main() {
 	fmt.Println("\n6. Simulando Transmissão:")
 	if rand.Float32() < 0.3 { // 30% chance de interferência
 		fmt.Println(">>> Interferência Detectada! <<<")
-		encrypted.Qubits[2].RotateX(math.Pi / 4) // Altera um qubit
+		// Aplica Pauli-Z em um qubit aleatório
+		pauli.ApplyZ(encrypted.Qubits[3])
 	}
 
 	// 7. Decriptação da Mensagem
@@ -75,4 +100,36 @@ func main() {
 	} else {
 		fmt.Println("Status: Possível Ataque Detectado!")
 	}
+
+	// 9. Demonstração de Algoritmos Quânticos
+	fmt.Println("\n9. Demonstração de Algoritmos Quânticos:")
+
+	// Deutsch-Jozsa
+	djOracle := func(input, output *core.Qubit) {
+		// Função constante f(x) = 0
+		gates.ApplyHadamard(output)
+	}
+	dj := algorithms.NewDeutschJozsa(djOracle)
+	fmt.Printf("\nDeutsch-Jozsa: Função é %s\n", map[bool]string{true: "constante", false: "balanceada"}[dj.Execute()])
+
+	// Grover
+	groverOracle := func(q *core.Qubit) bool {
+		return q.Measure() == 3 // Busca pelo número 3
+	}
+	grov := algorithms.NewGrover(groverOracle, 2, 2)
+	fmt.Printf("\nGrover: Resultado encontrado: %d\n", grov.Execute())
+
+	// Bernstein-Vazirani
+	bvOracle := func(q *core.Qubit) bool {
+		// String escondida '101'
+		q.RotateX(math.Pi)
+		return q.Measure() == 1
+	}
+	bv := algorithms.NewBernsteinVazirani(bvOracle, 3)
+	fmt.Printf("\nBernstein-Vazirani: String encontrada: %s\n", bv.FindHiddenString())
+
+	// Shor
+	shor := algorithms.NewShor(15, 4)
+	f1, f2 := shor.Factor()
+	fmt.Printf("\nShor: Fatores de 15: %d e %d\n", f1, f2)
 }
