@@ -1,5 +1,5 @@
 # GoQubitSim
-Implementação em Go da lib [QubitSim de JS](https://github.com/dougdotcon/QubitSim)
+Implementação em Go da lib [QubitSim de JS](https://github.com/suissa/QubitSim)
 
 <div align="center">
   <img src="assets/img/LOGOSPNG/logo.png" alt="QubitSim" width="220"/>
@@ -407,24 +407,10 @@ A única exigência é manter o aviso de copyright e a licença em qualquer cóp
 <table>
   <tr>
     <td align="center">
-      <a href="https://github.com/maikonweber">
-        <img src="https://github.com/maikonweber.png" width="100px;" alt="Maikon Weber"/>
+      <a href="https://github.com/suissa">
+        <img src="https://github.com/suissa.png" width="100px;" alt="Suissa"/>
         <br />
-        <sub><b>Maikon Weber</b></sub>
-      </a>
-      <br />
-      <sub>Desenvolvimento inicial</sub>
-    </td>
-  </tr>
-</table>
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/dougdotcon">
-        <img src="https://github.com/dougdotcon.png" width="100px;" alt="Douglas Machado"/>
-        <br />
-        <sub><b>Douglas Machado</b></sub>
+        <sub><b>Suissa</b></sub>
       </a>
       <br />
       <sub>Desenvolvimento inicial</sub>
