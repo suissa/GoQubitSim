@@ -1,7 +1,7 @@
 # GoQubitSim
 
 <div align="center">
-  <img src="https://i.imgur.com/1JLXt5C.png" alt="QubitSim" width="220"/>
+  <img src="https://i.imgur.com/DOOUfxo.png" alt="QubitSim" width="220"/>
   <h1>GoQubitSim</h1>
   <p><strong>Uma biblioteca Go para simulação de computação quântica e criptografia quântica</strong></p>
   
