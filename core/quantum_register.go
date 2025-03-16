@@ -4,10 +4,12 @@ type QuantumRegister struct {
 	Qubits []*Qubit
 }
 
-func NewQuantumRegister(qubitCount int) *QuantumRegister {
-	return &QuantumRegister{
-		Qubits: make([]*Qubit, 0),
+func NewQuantumRegister(n int) *QuantumRegister {
+	qubits := make([]*Qubit, n)
+	for i := range qubits {
+		qubits[i] = NewQubit([]float64{1, 0}) // Estado |0⟩
 	}
+	return &QuantumRegister{Qubits: qubits}
 }
 
 func (qr *QuantumRegister) Measure() []int {
