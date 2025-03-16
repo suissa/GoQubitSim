@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/suissa/goqubitsim/core"
-	"github.com/suissa/goqubitsim/gates"
+	"github.com/suissa/goqubitsim/core/gates"
 )
 
 func main() {
