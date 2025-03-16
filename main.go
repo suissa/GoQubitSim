@@ -76,13 +76,3 @@ func main() {
 		fmt.Println("Status: Possível Ataque Detectado!")
 	}
 }
-
-func (q *core.Qubit) Entangle(other *core.Qubit) {
-	newCoefficients := make([]float64, 0, len(q.Coefficients)*len(other.Coefficients))
-	for _, c1 := range q.Coefficients {
-		for _, c2 := range other.Coefficients {
-			newCoefficients = append(newCoefficients, c1*c2)
-		}
-	}
-	q.Coefficients = newCoefficients
-}
