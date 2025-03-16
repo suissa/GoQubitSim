@@ -3,7 +3,7 @@ Implementação em Go da lib [QubitSim de JS](https://github.com/suissa/QubitSim
 
 <div align="center">
   <img src="https://i.imgur.com/FWzye0m.png" alt="QubitSim" width="220"/>
-  <h1>QubitSim</h1>
+  <h1>GoQubitSim</h1>
   <p><strong>Uma biblioteca Go para simulação de computação quântica e criptografia quântica</strong></p>
   
   <p>
